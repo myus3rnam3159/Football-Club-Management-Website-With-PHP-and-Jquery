@@ -1,0 +1,13 @@
+SetEnvIf Authorization .+ HTTP_AUTHORIZATION=$0
+
+Header set Access-Control-Allow-Origin "*"
+
+
+php_flag display_errors on
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+
+RewriteRule    ^players/([0-9]+)$          /controller/PlayersController.php?playerid=$1    [L]
+RewriteRule    ^clubs/([0-9]+)$          /controller/ClubsController.php?clubid=$1    [L]
