@@ -5,7 +5,8 @@
     1. https://learn.jquery.com/events/event-delegation/  
     2. https://api.jquery.com/on/#direct-and-delegated-events  
 
-# Pagination docs: https://esimakin.github.io/twbs-pagination/
+# Pagination docs: https://esimakin.github.io/twbs-pagination/  
+# Jquery cookie cdn: https://cdnjs.com/libraries/jquery-cookie
 
 # Jquery cdn: https://releases.jquery.com/
 
@@ -71,3 +72,4 @@
     28. Sử dụng cookie trong jquery:  
         https://www.aspsnippets.com/Articles/Send-Pass-Data-Values-from-one-page-to-another-using-jQuery.aspx  
         https://stackoverflow.com/questions/20877142/how-to-save-data-in-a-cookie-using-jquery  
+    29. Xóa cookie vs jquery: https://stackoverflow.com/questions/3671659/how-to-delete-a-cookie-using-jquery/3671790#3671790
