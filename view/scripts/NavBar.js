@@ -7,14 +7,19 @@ let loginFormIdSelector = "#login-form";
 loadAdmin();
 login();
 
-function checkUserInput(userInput, checkPattern, alertMessg, selector){
+function logout() {
+  //Test
+  //console.log("Got in");
+  localStorage.removeItem(tokenKey);
+  $("#loggedin-btn").remove();
+  loadAdmin();
+}
 
+function checkUserInput(userInput, checkPattern, alertMessg, selector) {
   let alertSelector = `${selector} + .alert-danger`;
 
   if (!RegExp(checkPattern).test(userInput)) {
-
     if ($(alertSelector).length === 0) {
-
       $(selector).after(
         `<div class="alert alert-danger" role="alert">
           ${alertMessg}
@@ -23,44 +28,43 @@ function checkUserInput(userInput, checkPattern, alertMessg, selector){
     }
     return false;
   }
-  
+
   $(alertSelector).remove();
   return true;
 }
 
-function loadLogInButton(btnId, modalSelector, selector){
+function loadLogInButton(btnId, modalSelector, selector) {
   let btnTemplate = `
         <button 
-            class="btn btn-secondary my-2 my-sm-0" 
-            type="submit"
-            data-toggle="modal"
-            data-target="${modalSelector}"
-            id = "${btnId}"
+          class="btn btn-secondary my-2 my-sm-0" 
+          type="submit"
+          data-toggle="modal"
+          data-target="${modalSelector}"
+          id = "${btnId}"
         >Đăng nhập
         </button>
     `;
-    $(selector).after(btnTemplate);
+  $(selector).after(btnTemplate);
 
-    $("#login-btn").on("click", function(e){
-      $(loginFormIdSelector)[0].reset();
-      $(`${loginFormIdSelector} .alert`).remove();
-    });
+  $("#login-btn").on("click", function (e) {
+    $(loginFormIdSelector)[0].reset();
+    $(`${loginFormIdSelector} .alert`).remove();
+  });
 }
 
 function loadLoggedInDropdown(selector, btnName, logOutName) {
   //Xóa nút đăng nhập
-  $('#login-btn').remove();
+  $("#login-btn").remove();
   //Thoát modal
-  template = `
-        <div class="btn-group">
-            <button type="button" class="btn btn-success dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                Xin chào ${btnName}
-            </button>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">${logOutName}</a>
-            </div>
-        </div>
-      `;
+  template = 
+    `<button 
+      type="button" 
+      class="btn btn-success" 
+      onclick = "logout()"
+      id = "loggedin-btn"
+      >
+        Xin chào ${btnName} - ${logOutName}
+      </button>`;
   $(selector).after(template);
 }
 
@@ -80,14 +84,14 @@ function login() {
     let messg = "Mã đăng nhập phải toàn số, 8 đến 15 kí tự";
     let pattern = "^[0-9]{8,15}$";
 
-    if(!checkUserInput(user.userid, pattern, messg, selector.uid)){
+    if (!checkUserInput(user.userid, pattern, messg, selector.uid)) {
       return;
     }
 
     pattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9]).{8,15}$";
     messg = "Mật khẩu phải không cách, không dấu, không kí tự đặc biệt, có số, có viết hoa 8 đến 15 kí tự";
-    
-    if(!checkUserInput(user.upassword, pattern, messg, selector.pw)){
+
+    if (!checkUserInput(user.upassword, pattern, messg, selector.pw)) {
       return;
     }
 
@@ -98,15 +102,14 @@ function login() {
       data: JSON.stringify(user),
       dataType: "json",
       beforeSend: function (xhr) {
-        xhr.setRequestHeader("Content-Type", 'application/json');
+        xhr.setRequestHeader("Content-Type", "application/json");
       },
       success: function (res) {
         //Lưu token vào browser local storage
         localStorage.setItem(tokenKey, res.data.upassword);
         //Ẩn modal
-        $(modalIdSelector).modal('hide');
+        $(modalIdSelector).modal("hide");
         loadLoggedInDropdown(foreUlClass, res.data.uname, logOutTitle);
-
       },
       error: function (xhr, ajaxOptions, thrownError) {
         //Test
