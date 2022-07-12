@@ -34,7 +34,7 @@
     e. chọn start để chạy server / net start apache2.4 trong cmdline  
     f. chọn stop để tắt server / net stop apache2.4 trong cmdline  
 
-# Nguồn tham khảo  
+#Nguồn tham khảo  
     1. Nên để script tag ở đâu trong file html: https://stackoverflow.com/questions/19985457/where-can-i-put-a-script-tag/19985528#19985528  
     2. Khi nào sử dụng var / let trong js: https://www.jstips.co/en/javascript/keyword-var-vs-let/  
     3. Trong php include thì nều phần được include bị lỗi các phần khác vẫn chạy, còn require thì nếu phần được require bị lỗi -> không chạy các phần còn lại  
