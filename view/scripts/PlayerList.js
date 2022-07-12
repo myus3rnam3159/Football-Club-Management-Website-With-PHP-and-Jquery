@@ -1,3 +1,10 @@
+let paginationSelector = "#pgtn";
+var getParams = {
+  pageNum: 1,
+};
+
+getClubIdThroughCookie();
+
 createTableHeadings();
 //Thêm danh sách clb
 createClubList();
@@ -6,10 +13,6 @@ createNumberList();
 //Thêm danh sách quốc tịch
 createNationalityList();
 
-let paginationSelector = "#pgtn";
-var getParams = {
-  pageNum: 1,
-};
 getPlayers();
 
 //khi chọn clb
@@ -21,14 +24,23 @@ onFilterChange("nation-menu", "nation");
 //Khi tìm kiếm thay đổi
 onSearchChange();
 
+function getClubIdThroughCookie() {
+  getParams.clubId = $.cookie("clubid");
+  //Test
+  //console.log(getParams.clubId);
+  $.removeCookie('clubid');
+}
+
 function displayAlert(alertMessg, alertName, failed) {
   let alertModalSelector = "#notification";
+  let errorSelector = `${alertModalSelector} .alert-danger`
 
   $(".modal-title").html(alertName);
 
   if (failed === true) {
-    $(`${alertModalSelector} .alert-danger`).text(alertMessg);
+    $(errorSelector).text(alertMessg);
   } else {
+    $(errorSelector).remove();
     $(`${alertModalSelector} .alert-success`).text(alertMessg);
   }
 
@@ -173,13 +185,10 @@ function onFilterChange(menuId, probName) {
   });
 }
 
-function chooseClubOnCookie(){
-  let clubId = $.cookie("clubid");
-
-  if(clubId !== null){
-    getParams.clubId = clubId;
+function checkClubSelected() {
+  if (typeof getParams.clubId !== 'undefined') {
     $("#clubname-menu #all").removeClass("active");
-    $(`#${clubId}`).addClass("active");
+    $(`#${getParams.clubId}`).addClass("active");
   }
 }
 
@@ -273,7 +282,7 @@ function createClubList() {
     url: getUrl,
   }).done(function (result) {
     handleFilterResponse(result, "clubid", "clubname", filterMenuId);
-    chooseClubOnCookie();
+    checkClubSelected();
   });
 }
 
