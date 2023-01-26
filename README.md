@@ -1,6 +1,6 @@
 # Nếu trên button không sử dụng seletor + hàm on() được -> dùng onlick = "hàm đã khai báo"
 # Phải luôn đảm bảo các custom script đặt dưới script của jquery  
-# Chỉ sử document ready khi cần, không dùng bậy bạ
+# Chỉ sử dụng document ready khi cần, không dùng bậy bạ
 # Xử lý content được tải lên bởi ajax với hàm nằm ngoài ajax  
     1. https://learn.jquery.com/events/event-delegation/  
     2. https://api.jquery.com/on/#direct-and-delegated-events  
